@@ -1,0 +1,59 @@
+<div class="local-card content">
+	<div>
+		<!--h1>HI FOLKS</h1-->
+		<div class="tltle">Subsidiaries</div>
+		<div class="bordered">
+			<div style="width: 51%; margin-top: 18px; display: flex">
+				<div style="margin-left: 19px; font-size: 15px; font-weight: 600">Corporation:</div>
+				<div style="font-size: 15px; margin-left: 10px;">{{corporationName}}</div>
+			</div>
+			<div style="margin:12px 0 0 19px;">
+				<div class="table-title">Subsidiaries</div>
+				<div style="margin: 5px 0 10px 0; width:61%">
+					<table cellspacing="0" style="width: 100%">
+						<thead>
+							<td class="table-header" style="width: 20%">CNPJ</td>
+							<td class="table-header" style="width: 15%">Province Code</td>
+							<td class="table-header" style="width: 40%">TownHall url</td>
+							<td class="table-header" style="width: 10%"></td>
+						</thead>
+						<tbody>
+							<tr class="t-row">
+								<td class="t-columns">
+									<input type="text" [(ngModel)]="subsidiary.cnpj" size="15"/>
+								</td>
+								<td class="t-columns">
+									<input type="text" [(ngModel)]="subsidiary.provinceCode" size="10"/>
+								</td>
+								<td class="t-columns">
+									<input type="text" [(ngModel)]="subsidiary.townhallUrl" size="50"/>
+								</td>
+								<td class="t-columns" style="width: 10px; padding: 1px">
+									<button (click)="onAdd()" style="padding: 1px 6px 1px 6px;">Add</button>
+								</td>
+							</tr>
+							<tr *ngFor="let s of subsidiaries" class="t-row">
+								<td class="t-columns">{{s.cnpj}}</td>
+								<td class="t-columns">{{s.provinceCode}}</td>
+								<td class="t-columns">{{s.townhallUrl}}</td>
+								<td class="t-columns" style="width: 10px; padding: 1px">
+									<button (click)="onDelete(s.id)" [disabled]="s.id == null" 
+										style="padding: 1px 6px 1px 6px;">Delete</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div style="display:flex; margin-left: 10px; margin-top:5px;">
+						<div style="width:90%"></div>
+						<pagination [pagination]="pagination" [totalPages]="totalPages" (page)="onPage($event)"></pagination>
+					</div>
+				</div>
+			</div>
+			<div style=" display: flex; width: 61%; direction: rtl; margin: 20px 0px 15px 0px;">
+				<button (click)="onSave()">Save</button> 
+				<div style="width:10px"></div>
+				<button (click)="onBack()">Back</button> 
+			</div>
+		</div>
+	</div>
+</div>

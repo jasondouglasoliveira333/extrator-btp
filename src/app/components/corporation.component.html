@@ -1,0 +1,53 @@
+<div class="local-card content">
+	<div>
+		<div class="tltle">Corporation</div>
+		<div class="bordered">
+			<!-- Filtro  -->
+			<div style="width: 51%; margin-top: 18px;">
+				<div style="display: flex; margin: 14px 0 16px 22px;">
+					<div style="font-size: 12px; margin-right: 13px; width: 88px;">Name</div>
+					<input [(ngModel)]="corporation.name"  type="text" maxlength="30" size="30">
+				</div>
+				<div style="display: flex; margin: 14px 0 16px 22px;">
+					<div style="font-size: 12px; margin-right: 13px; width: 88px;">CNPJ</div>
+					<input [(ngModel)]="corporation.rootCnpj"  type="text" maxlength="20" size="20">
+				</div>
+				<div style="display: flex; margin: 14px 0 16px 22px;">
+					<div style="font-size: 12px; margin-right: 13px; width: 88px;">Retroative Days</div>
+					<input [(ngModel)]="corporation.retroativeDays"  type="text" maxlength="7" size="7">
+				</div>
+				<div style="display: flex; margin: 0px 0 16px 22px;">
+					<div style="font-size: 12px; margin-right: 13px; width: 88px;">Password</div>
+					<input [(ngModel)]="corporation.certificatePassword"  type="text" maxlength="10" size="10">
+				</div>
+				<div style="display: flex; margin: 0px 0 16px 22px;">
+					<div style="font-size: 12px; margin-right: 13px; width: 88px;">SAP Destination</div>
+					<input [(ngModel)]="corporation.sapConfDestinationName"  type="text" maxlength="20" size="20">
+				</div>
+				<div style="display: flex; margin: 0px 0 16px 22px;">
+					<div style="font-size: 12px; margin-right: 13px; width: 88px;">SAP Function</div>
+					<input [(ngModel)]="corporation.sapConfEntryPoint"  type="text" maxlength="20" size="20">
+				</div>
+				<div style="display: flex; margin: 0px 0 16px 22px;">
+					<div style="font-size: 12px; margin-right: 13px; width: 88px;">Certificate</div>
+					<div (click)="onOpenUpload()" style=" display: flex; border: 1px solid rgb(184 205 241); width: 390px">
+						<input id="fileInput" type="file" (change)="onSelectFiles($event)" 
+							style="position: absolute; top: -10px; left:-10px; width:0px; height: 0px; opacity: 0">
+						<div style="width:87%">
+							<div style="margin: 2px 5px 0 5px; font-size: 14px;">{{(file != null ? file.name : '') | slice:0:40}}</div>
+							<div *ngIf="file == null" style="margin: 2px 5px 0 5px; font-size: 14px;">{{corporation.certificateFileName  | slice:0:40}}</div>
+						</div>
+						<div style="width:58px">
+							<button>Upload</button>
+						</div>
+					</div>
+				</div>
+				<div style="direction: rtl; margin: 25px 32px; display: flex">
+					<button (click)="onSave()">Save</button>
+					<div style="width:10px"></div>
+					<button (click)="onBack()">Back</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

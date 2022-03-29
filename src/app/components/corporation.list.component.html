@@ -1,0 +1,54 @@
+<div class="local-card content">
+	<div>
+		<div class="tltle">Corporations</div>
+		<div class="bordered">
+			<div style="display: flex; margin:23px 0 0 19px;">
+				<div style="width: 60%;">
+					<div style="display:flex">
+						<div class="table-title" style="padding: 0px 8px 6px 0px;">Corporations</div>
+						<div style="width: 85%; direction: rtl">
+							<button (click)="onAdd()" style="margin-left: 65%; padding: 1px 6px 1px 6px;">Add</button>
+						</div>
+					</div>
+					<div style="margin: 5px 0 10px 0; width:100%">
+						<table cellspacing="0" style="width: 100%">
+							<thead>
+								<td class="table-header" style="padding: 0px 0 0 5px;">Name</td>
+								<td class="table-header">Root CNPJ</td>
+								<td class="table-header" style="width: 5%;"></td>
+								<td class="table-header" style="width: 5%;"></td>
+								<td class="table-header" style="width: 5%;"></td>
+								<td class="table-header" style="width: 5%;"></td>
+							</thead>
+							<tbody>
+								<tr *ngFor="let c of corporations" class="t-row">
+									<td class="t-columns">{{c.name}}</td>
+									<td class="t-columns">{{c.rootCnpj}}</td>
+									<td class="t-columns" style="width: 10px;">
+										<button (click)="onEdit(c.id)" style="padding: 1px 6px 1px 6px;">Edit</button>
+									</td>
+									<td class="t-columns" style="width: 10px;">
+										<button (click)="onEditSubsidiaries(c.id)" style="padding: 1px 6px 1px 6px;">Subsidiaries</button>
+									</td>
+									<td class="t-columns" style="width: 10px;">
+										<button (click)="onEditMails(c.id)" style="padding: 1px 6px 1px 6px;">Mails</button>
+									</td>
+									<td class="t-columns" style="width: 10px;">
+										<button (click)="onDelete(c.id)" style="padding: 1px 6px 1px 6px;">Remove</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div style="display:flex; margin-left: 10px; margin-top:5px;">
+							<div style="width:90%"></div>
+							<pagination [pagination]="pagination" [totalPages]="totalPages" (page)="onPage($event)"></pagination>
+						</div>
+					</div>
+					<div style="direction: rtl; margin: 20px 2px; display: flex">
+						<button (click)="onRunJobs()">Run Job</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

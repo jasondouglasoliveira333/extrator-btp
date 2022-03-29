@@ -1,0 +1,9 @@
+<div style="display:flex">
+	<button (click)="onPage(0)" class="page-button" style="border-radius: 5px 0 0 5px;"><<</button>
+	<button (click)="onPage(pagination.page-1)" class="page-button"><</button>
+	<button *ngIf="pagination.page > 0" class="page-button">...</button>
+	<button *ngFor="let page of pages();" (click)="onPage(page)" class="page-button">{{page+1}}</button>
+	<button *ngIf="totalPages > 3 && pagination.page+1 != totalPages" class="page-button">...</button>
+	<button (click)="onPage(pagination.page+1)" class="page-button">></button>
+	<button (click)="onPage(totalPages-1)" class="page-button" style="border-radius: 0 5px 5px 0;">>></button>
+</div>

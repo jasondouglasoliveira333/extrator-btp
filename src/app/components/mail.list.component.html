@@ -1,0 +1,163 @@
+<div class="local-card content">
+	<div>
+		<div style="font-size: 14px; font-weight: 600">Mails</div>
+		<div class="bordered">
+			<div style="width: 51%; margin-top: 18px; display: flex">
+				<div style="margin-left: 19px; font-size: 15px; font-weight: 600">Corporation:</div>
+				<div style="font-size: 15px; margin-left: 10px;">{{corporationName}}</div>
+			</div>
+			<div style="margin: 13px 5px;">
+				<!-- tipo conta (office ou pop) -->
+				<div style="display:flex; margin-top: 5px;">
+					<div class="filter-label" style="margin: 6px 4px 0 13px;">Account Type</div>
+					<div style="display:flex">
+						<input type="radio" name="tipoConta" checked style="height: 27px; padding: 10px;" (click)='showOfficePanelVisible(true)'>
+						<div style="font-size: 14px; padding: 8px 10px 0 0">Office 365</div>
+					</div>
+					<div style="display:flex">
+						<input type="radio" name="tipoConta" style="height: 27px; padding: 10px;"  (click)='showOfficePanelVisible(false)'>
+						<div style="font-size: 14px; padding: 8px 10px 0 0">POP/IMAP</div>
+					</div>
+				</div>
+				<!-- -->
+				<div style="margin-top: 16px" [hidden]="officePanelVisible == false">	
+					<!-- Column -->
+					<div style="margin-left:13px; display: flex">
+						<!--a [href]="loginOauth2Microsoft"-->
+						<a (click)="onMicrosoftLogin()">
+							<button>Generate Token</button>
+						</a>
+						<div style="width:10px"></div>
+						<a (click)="onMicrosoftLogout()">
+							<button>Logout</button>
+						</a>
+					</div>
+					<div style="margin-left:13px; width: 55%">
+						<div style="font-size: 13px; padding: 17px 8px 13px 0px; font-weight: 600">Registered Tokens</div>
+						<div>
+							<table cellspacing="0" style="width: 100%">
+								<thead>
+									<td class="table-header"></td> 
+									<td class="table-header">Email</td>
+									<td class="table-header">Access Token</td>
+								</thead>
+								<tbody *ngIf="mailConfiguration != null">
+									<tr *ngFor="let moi of mailConfiguration.mailOutlookInfos" class="t-row">
+										<td class="t-columns" style="padding: 0px;">
+											<div style="display:flex">
+											<a (click)="onDeleteMailOutlook(moi)">
+												<img src="{{resourcePath}}/assets/img/close.png" style="margin-top: 3px;margin-left: -3px;width:22px" />
+											</a>
+											</div>
+										</td>
+										<td class="t-columns">{{moi.email  | slice:0:40}}</td>
+										<td class="t-columns"  style="border-right: 1px solid rgb(184 205 241);">
+											{{moi.accessToken | slice:0:40}}...
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<div style="display:flex; margin-left: 10px; margin-top:5px;">
+								<div style="width:90%"></div>
+								<pagination [pagination]="pagination" [totalPages]="totalPages" (page)="onPage($event)"></pagination>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div style="margin-top: 16px" [hidden]="officePanelVisible == true">
+					<div style="direction: rtl; margin-right:15px; width:55%">
+						<button (click)="onAddMailInfo();">Add</button>
+					</div>
+					<div style="margin: 10px 0 0 10px; width:55%">
+						<table cellspacing="0" style="width: 100%">
+							<thead>
+								<td class="table-header"></td> 
+								<td class="table-header">Host</td>
+								<td class="table-header">Port</td>
+								<td class="table-header">Protocol</td>
+								<td class="table-header">User</td>
+								<td class="table-header">Pass</td>
+							</thead>
+							<tbody *ngIf="mailConfiguration != null">
+								<tr *ngFor="let mi of mailConfiguration.mailInfos" class="t-row">
+									<td class="t-columns" style="padding: 0px;">
+										<div style="display:flex">
+										<a (click)="mailInfo = mi; mailConfigPanelVisible = true">
+											<img width="24px" src="{{resourcePath}}/assets/img/edit.png"/>
+										</a>
+										<a (click)="onDelete(mi)">
+											<img src="{{resourcePath}}/assets/img/close.png" style="margin-top: 3px;margin-left: -3px;width:18px" />
+										</a>
+										</div>
+									</td>
+									<td class="t-columns">{{mi.host}}</td>
+									<td class="t-columns">{{mi.port}}</td>
+									<td class="t-columns">{{mi.protocol}}</td>
+									<td class="t-columns">{{mi.username}}</td>
+									<td class="t-columns" style="border-right: 1px solid rgb(184 205 241);">
+										{{mi.password}}
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div style="display:flex; margin-left: 10px; margin-top:5px;">
+							<div style="width:90%"></div>
+							<pagination [pagination]="pagination" [totalPages]="totalPages" (page)="onPage($event)"></pagination>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div style=" display: flex; width: 56%; direction: rtl; margin: 20px 0px 15px 0px;">
+				<button (click)="onBack()">Back</button> 
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div [hidden]="mailConfigPanelVisible == false" style="position: absolute; left: 0px; top: 0px; width: 100%; height: 100%; background-color: gray; opacity: .7;">
+</div>
+<div [hidden]="mailConfigPanelVisible == false" style="position: absolute; left: 0px; top: 0px; left: 40%; top: 100px; background-color: white; width: 20%;">
+	<div style="display: flex; padding: 10px;">
+		<div style="width: 92%; font-weight: 600">POP/IMAP</div>
+		<a (click)="mailConfigPanelVisible = false"><img width="27px" src="{{resourcePath}}/assets/img/close.png"/></a>
+	</div>
+	<div style="margin-left:15px">
+		<div style="font-size: 15px">Host</div>
+		<div style="margin-top: 6px;">
+			<input [(ngModel)]="mailInfo.host" type='text' maxLength="50" size="20" style="font-size: 15px">
+		</div>
+	</div>
+	<div style="margin-left:15px">
+		<div style="font-size: 15px">Port</div>
+		<div style="margin-top: 6px;">
+			<input [(ngModel)]="mailInfo.port" type='text' (keydown)="onPortKeyup($event)" maxLength="5" size="10" style="font-size: 15px">
+		</div>
+	</div>
+	<div style="margin-left:15px">
+		<div style="font-size: 15px">Protocol</div>
+		<div style="margin-top: 6px;">
+			<select [(ngModel)]="mailInfo.protocol" style="font-size: 15px">
+				<option *ngFor="let protocol of protocols" value="{{protocol}}">{{protocol}}</option>
+			</select>
+		</div>
+	</div>
+	<div style="margin-left:15px">
+		<div style="font-size: 15px">Email</div>
+		<div style="margin-top: 6px;">
+			<input [(ngModel)]="mailInfo.username" type='text' maxLength="50" size="20" style="font-size: 15px">
+		</div>
+	</div>
+	<div style="margin-left:15px">
+		<div style="font-size: 15px">Password</div>
+		<div style="margin-top: 6px;">
+			<input [(ngModel)]="mailInfo.password" type='text' maxLength="20" size="20" style="font-size: 15px">
+		</div>
+	</div>
+	<div style="display:flex; padding: 10px">
+		<div style="width: 80%"></div>
+		<button (click)="onSaveMailInfo()">Save</button>
+		<div style="margin-right: 5px;"></div>
+		<button (click)="mailConfigPanelVisible = false">Cancel</button>
+	</div>
+</div>

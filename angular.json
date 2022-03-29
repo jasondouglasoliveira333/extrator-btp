@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "conciliador": {
+    "extrator-btp": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/conciliador",
+            "outputPath": "dist/extrator-btp",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -65,18 +65,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "conciliador:build"
+            "browserTarget": "extrator-btp:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "conciliador:build:production"
+              "browserTarget": "extrator-btp:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "conciliador:build"
+            "browserTarget": "extrator-btp:build"
           }
         },
         "test": {
@@ -113,16 +113,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "conciliador:serve"
+            "devServerTarget": "extrator-btp:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "conciliador:serve:production"
+              "devServerTarget": "extrator-btp:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "conciliador"
+  "defaultProject": "extrator-btp"
 }
